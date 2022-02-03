@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    //[SerializeField] private LayerMask raycastMask;
-    //[SerializeField] private LayerMask explosionMask;
     [SerializeField] private GameObject bomb;
     
     private bool isMovement;
@@ -45,7 +43,7 @@ public class PlayerController : MonoBehaviour
             Instantiate(bomb, transform.position, Quaternion.identity);
         }
 
-        StartCoroutine(Destroy());
+        //StartCoroutine(Restart());
     }
 
     private void MovePlayerTo(Vector2 dir)
@@ -66,11 +64,11 @@ public class PlayerController : MonoBehaviour
 
     private bool Raycast(Vector2 dir)
     {
-        var hit = Physics2D.Raycast(transform.position, dir, 1f/*, raycastMask*/);
+        var hit = Physics2D.Raycast(transform.position, dir, 1f);
         return hit.collider != null;
     }
 
-    private IEnumerator Destroy()
+    /*private IEnumerator Restart()
     {
         yield return new WaitForSecondsRealtime(3f);
         var distance = Vector2.Distance(transform.position, bomb.transform.position);
@@ -79,5 +77,5 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(0);
             Debug.Log("YOU LOOSER");
         }
-    }
+    }*/
 }

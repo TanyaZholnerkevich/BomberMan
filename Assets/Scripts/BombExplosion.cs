@@ -10,11 +10,6 @@ public class BombExplosion : MonoBehaviour
     [SerializeField] private LayerMask bombMask;
     [SerializeField] private GameObject explosion;
 
-    private void Start()
-    {
-        explosion.SetActive(false);
-    }
-
     private void Update()
     {
         StartCoroutine(Explosion());
@@ -23,16 +18,16 @@ public class BombExplosion : MonoBehaviour
     private IEnumerator Explosion()
     {
         yield return new WaitForSeconds(3f);
-        explosion.SetActive(true);
+        Instantiate(explosion, transform.position, Quaternion.identity);
         var colliders = Physics2D.OverlapCircleAll(transform.position, radius, bombMask);
         foreach (var cldr in colliders)
         {
             Destroy(cldr.gameObject);
-            /*if (cldr.CompareTag("Player"))
+            if (cldr.CompareTag("Player"))
             {
                 SceneManager.LoadScene(0);
                 Debug.Log("YOU LOOSER");
-            }*/
+            }
         }
         Destroy(this.gameObject);
     }
